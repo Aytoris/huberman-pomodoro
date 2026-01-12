@@ -163,7 +163,7 @@ function finishSession() {
   UI.updateButtons(appState.completedSessions);
 }
 
-function cancelSession() {
+async function cancelSession() {
   if (confirm('Are you sure you want to cancel the session?')) {
     if (currentTimer) currentTimer.cancel();
     appState.setState(STATES.IDLE);
@@ -174,8 +174,13 @@ function cancelSession() {
     }
   } else {
     // If not cancelled, re-enter fullscreen if lost (some interactions might exit it)
-    if (!document.fullscreenElement && document.documentElement.requestFullscreen) {
-      document.documentElement.requestFullscreen().catch(err => console.log('Could not re-enter fullscreen:', err));
+    // Request Immersive Fullscreen
+    if (document.documentElement.requestFullscreen) {
+      try {
+        await document.documentElement.requestFullscreen();
+      } catch (e) {
+        console.warn('Fullscreen denied:', e);
+      }
     }
   }
 }
