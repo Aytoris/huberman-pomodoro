@@ -69,9 +69,9 @@ overlay.addEventListener('click', (e) => {
   }
 });
 
-// Double Click/Tap to Cancel (Focus Mode)
+// Double Click/Tap to Cancel (Focus Mode & Rest Mode)
 overlay.addEventListener('dblclick', (e) => {
-  if (appState.currentState === STATES.FOCUS) {
+  if (appState.currentState === STATES.FOCUS || appState.currentState === STATES.REST) {
     cancelSession();
   }
 });
