@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/huberman-pomodoro/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Huberman Pomodoro</title>
+    <link rel="manifest" href="/huberman-pomodoro/manifest.json">
+    <meta name="theme-color" content="#000000">
+    <script type="module" crossorigin src="/huberman-pomodoro/assets/index-BeE6Abta.js"></script>
+    <link rel="stylesheet" crossorigin href="/huberman-pomodoro/assets/index-C7QlTBgx.css">
+  </head>
+  <body>
+    <div id="app">
+      <!-- Main Menu -->
+      <div id="menu-view" class="view">
+        <h1>Focus Sessions</h1>
+        <div class="buttons-grid">
+          <button class="session-btn" data-index="0" aria-label="Start Session 1"></button>
+          <button class="session-btn" data-index="1" aria-label="Start Session 2"></button>
+          <button class="session-btn" data-index="2" aria-label="Start Session 3"></button>
+          <button class="session-btn" data-index="3" aria-label="Start Session 4"></button>
+        </div>
+        <button id="reset-btn" class="secondary-btn">Reset Progress</button>
+      </div>
+
+      <!-- Overlay for Timer States -->
+      <div id="overlay-view" class="view hidden">
+        <div id="overlay-content">
+            <div id="timer-display"></div>
+            <div id="message-display"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
