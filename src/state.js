@@ -12,8 +12,7 @@ export const STATES = {
 
 export const CONSTANTS = {
     FOCUS_DURATION_MIN: 50,
-    REST_DURATION_MIN: 10,
-    LONG_PRESS_DURATION_MS: 2000
+    REST_DURATION_MIN: 10
 };
 
 // Simple state store

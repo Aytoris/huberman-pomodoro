@@ -6,7 +6,7 @@ import { UI } from './ui.js';
 
 // Timer instance
 let currentTimer = null;
-let longPressTimer = null;
+
 
 // Initial Draw
 UI.updateButtons(appState.completedSessions);
@@ -33,27 +33,6 @@ document.getElementById('reset-btn').addEventListener('click', () => {
 
 // 3. Overlay Interactions (Tap to transition / Long Press to cancel)
 const overlay = document.getElementById('overlay-view');
-
-// Cancel Logic (Long Press)
-const startLongPress = (e) => {
-  // Only allow cancel if we are in a running state (FOCUS or REST)
-  // Actually, allowing cancel anytime in overlay is good.
-  longPressTimer = setTimeout(() => {
-    cancelSession();
-  }, CONSTANTS.LONG_PRESS_DURATION_MS);
-};
-
-const endLongPress = (e) => {
-  if (longPressTimer) {
-    clearTimeout(longPressTimer);
-    longPressTimer = null;
-  }
-};
-
-overlay.addEventListener('mousedown', startLongPress);
-overlay.addEventListener('touchstart', startLongPress, { passive: true });
-overlay.addEventListener('mouseup', endLongPress);
-overlay.addEventListener('touchend', endLongPress);
 
 // Transition Logic (Tap)
 overlay.addEventListener('click', (e) => {
@@ -185,14 +164,15 @@ function finishSession() {
 }
 
 function cancelSession() {
-  if (currentTimer) currentTimer.cancel();
-  appState.setState(STATES.IDLE);
-  UI.hideOverlay();
-  releaseWakeLock();
-  if (document.fullscreenElement) {
-    document.exitFullscreen().catch(err => console.log(err));
+  if (confirm('Are you sure you want to cancel the session?')) {
+    if (currentTimer) currentTimer.cancel();
+    appState.setState(STATES.IDLE);
+    UI.hideOverlay();
+    releaseWakeLock();
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch(err => console.log(err));
+    }
   }
-  alert('Session Cancelled');
 }
 
 
