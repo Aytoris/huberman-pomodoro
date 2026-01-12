@@ -3,13 +3,17 @@
   --color-text: #ffffff;
   --color-primary: #646cff;
   --color-secondary: #535bf2;
-  
+
   --color-focus-bg: #000000;
-  --color-focus-end: #6a0dad; /* Purple */
-  --color-rest-bg: #fd5e53; /* Sunset Orange */
-  --color-rest-end: #ff0000; /* Red */
-  --color-success: #4caf50; /* Green */
-  
+  --color-focus-end: #6a0dad;
+  /* Purple */
+  --color-rest-bg: #fd5e53;
+  /* Sunset Orange */
+  --color-rest-end: #ff0000;
+  /* Red */
+  --color-success: #4caf50;
+  /* Green */
+
   --btn-size: 80px;
 }
 
@@ -22,9 +26,15 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text);
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  overflow: hidden; /* Prevent scrolling in app/overlay */
+  overflow: hidden;
+  /* Prevent scrolling in app/overlay */
   user-select: none;
   -webkit-user-select: none;
+}
+
+/* Hide cursor class */
+.no-cursor {
+  cursor: none !important;
 }
 
 #app {
@@ -120,8 +130,10 @@ h1 {
 /* Overlay View */
 #overlay-view {
   z-index: 100;
-  background-color: var(--color-focus-bg); /* Default Start Black */
-  transition: background-color 3s ease; /* Slow transition for Focus End */
+  background-color: var(--color-focus-bg);
+  /* Default Start Black */
+  transition: background-color 3s ease;
+  /* Slow transition for Focus End */
 }
 
 #overlay-view.focus-running {
@@ -130,7 +142,8 @@ h1 {
 
 #overlay-view.focus-end {
   background-color: var(--color-focus-end);
-  transition: background-color 5s ease; /* Specs: "slowly turn on" */
+  transition: background-color 5s ease;
+  /* Specs: "slowly turn on" */
 }
 
 #overlay-view.rest-running {

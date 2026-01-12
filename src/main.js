@@ -76,6 +76,18 @@ overlay.addEventListener('dblclick', (e) => {
   }
 });
 
+// Auto-hide Cursor Logic
+let cursorTimeout;
+document.addEventListener('mousemove', () => {
+  document.body.classList.remove('no-cursor');
+  clearTimeout(cursorTimeout);
+
+  // Hide after 3 seconds of inactivity
+  cursorTimeout = setTimeout(() => {
+    document.body.classList.add('no-cursor');
+  }, 3000);
+});
+
 
 /**
  * Logic Flows
