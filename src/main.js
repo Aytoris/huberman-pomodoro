@@ -105,6 +105,15 @@ async function startSession(index) {
   UI.showOverlay(STATES.FOCUS);
   await requestWakeLock();
 
+  // Request Immersive Fullscreen
+  if (document.documentElement.requestFullscreen) {
+    try {
+      await document.documentElement.requestFullscreen();
+    } catch (e) {
+      console.warn('Fullscreen denied:', e);
+    }
+  }
+
   // Start Timer (50 min)
   // For debugging: 50 min. If needed, we can speed up.
   const duration = CONSTANTS.FOCUS_DURATION_MIN;
@@ -152,6 +161,9 @@ function finishSession() {
   appState.setState(STATES.IDLE);
   UI.hideOverlay();
   releaseWakeLock();
+  if (document.fullscreenElement) {
+    document.exitFullscreen().catch(err => console.log(err));
+  }
   // UI.updateButtons called by listener?
   // We didn't subscribe UI to state changes in StateManager yet strictly, 
   // but StateManager calls listeners.
@@ -165,6 +177,9 @@ function cancelSession() {
   appState.setState(STATES.IDLE);
   UI.hideOverlay();
   releaseWakeLock();
+  if (document.fullscreenElement) {
+    document.exitFullscreen().catch(err => console.log(err));
+  }
   alert('Session Cancelled');
 }
 
