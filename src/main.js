@@ -172,6 +172,11 @@ function cancelSession() {
     if (document.fullscreenElement) {
       document.exitFullscreen().catch(err => console.log(err));
     }
+  } else {
+    // If not cancelled, re-enter fullscreen if lost (some interactions might exit it)
+    if (!document.fullscreenElement && document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen().catch(err => console.log('Could not re-enter fullscreen:', err));
+    }
   }
 }
 
