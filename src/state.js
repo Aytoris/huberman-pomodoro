@@ -10,9 +10,9 @@ export const STATES = {
     COMPLETE: 'COMPLETE'
 };
 
-export const CONSTANTS = {
-    FOCUS_DURATION_MIN: 50,
-    REST_DURATION_MIN: 10
+const DEFAULT_SETTINGS = {
+    focusDuration: 50,
+    restDuration: 10
 };
 
 // Simple state store
@@ -21,6 +21,7 @@ class StateManager {
         this.currentState = STATES.IDLE;
         this.activeButtonIndex = null;
         this.completedSessions = this.loadProgress();
+        this.settings = this.loadSettings();
         this.listeners = [];
     }
 
@@ -69,6 +70,24 @@ class StateManager {
     isSessionCompleted(index) {
         return this.completedSessions.includes(index);
     }
+
+    // Settings Management
+    loadSettings() {
+        const saved = localStorage.getItem('huberman-pomodoro-settings');
+        return saved ? { ...DEFAULT_SETTINGS, ...JSON.parse(saved) } : { ...DEFAULT_SETTINGS };
+    }
+
+    saveSettings() {
+        localStorage.setItem('huberman-pomodoro-settings', JSON.stringify(this.settings));
+    }
+
+    updateSettings(newSettings) {
+        this.settings = { ...this.settings, ...newSettings };
+        this.saveSettings();
+        // Notify listeners if needed, though settings might not trigger state change directly
+        // But UI might need to update (e.g. if we display duration somewhere)
+    }
 }
 
 export const appState = new StateManager();
+

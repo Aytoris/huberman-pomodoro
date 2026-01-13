@@ -1,5 +1,5 @@
 import './style.css';
-import { appState, STATES, CONSTANTS } from './state.js';
+import { appState, STATES } from './state.js';
 import { Timer } from './timer.js';
 import { requestWakeLock, releaseWakeLock } from './wakelock.js';
 import { UI } from './ui.js';
@@ -7,9 +7,52 @@ import { UI } from './ui.js';
 // Timer instance
 let currentTimer = null;
 
-
 // Initial Draw
 UI.updateButtons(appState.completedSessions);
+
+/**
+ * Settings Modal Logic
+ */
+const settingsModal = document.getElementById('settings-modal');
+const focusInput = document.getElementById('focus-duration');
+const restInput = document.getElementById('rest-duration');
+const focusVal = document.getElementById('focus-val');
+const restVal = document.getElementById('rest-val');
+
+// Open Settings
+document.getElementById('settings-btn').addEventListener('click', () => {
+  // Load current values
+  const { focusDuration, restDuration } = appState.settings;
+  focusInput.value = focusDuration;
+  restInput.value = restDuration;
+  focusVal.innerText = focusDuration;
+  restVal.innerText = restDuration;
+
+  settingsModal.classList.remove('hidden');
+});
+
+// Close Settings (Save)
+document.getElementById('close-settings-btn').addEventListener('click', () => {
+  const newFocus = parseInt(focusInput.value);
+  const newRest = parseInt(restInput.value);
+
+  appState.updateSettings({
+    focusDuration: newFocus,
+    restDuration: newRest
+  });
+
+  settingsModal.classList.add('hidden');
+});
+
+// Slider Inputs
+focusInput.addEventListener('input', (e) => {
+  focusVal.innerText = e.target.value;
+});
+
+restInput.addEventListener('input', (e) => {
+  restVal.innerText = e.target.value;
+});
+
 
 /**
  * Event Listeners
@@ -105,9 +148,8 @@ async function startSession(index) {
     }
   }
 
-  // Start Timer (50 min)
-  // For debugging: 50 min. If needed, we can speed up.
-  const duration = CONSTANTS.FOCUS_DURATION_MIN;
+  // Start Timer (Dynamic Duration)
+  const duration = appState.settings.focusDuration;
 
   currentTimer = new Timer(duration, null, () => {
     // Focus Complete
@@ -127,8 +169,8 @@ function startRest() {
   appState.setState(STATES.REST);
   UI.showOverlay(STATES.REST);
 
-  // Start Rest Timer (10 min)
-  const duration = CONSTANTS.REST_DURATION_MIN;
+  // Start Rest Timer (Dynamic Duration)
+  const duration = appState.settings.restDuration;
 
   currentTimer = new Timer(duration, (remaining, total) => {
     const secs = Math.ceil(remaining / 1000);
@@ -184,6 +226,7 @@ async function cancelSession() {
     }
   }
 }
+
 
 
 
