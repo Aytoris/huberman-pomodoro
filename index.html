@@ -8,8 +8,8 @@
   <title>Huberman Pomodoro</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#000000">
-  <script type="module" crossorigin src="/huberman-pomodoro/assets/index-CrR_JZ1s.js"></script>
-  <link rel="stylesheet" crossorigin href="/huberman-pomodoro/assets/index-Dfdiq1kH.css">
+  <script type="module" crossorigin src="/huberman-pomodoro/assets/index-Bn6PMGQD.js"></script>
+  <link rel="stylesheet" crossorigin href="/huberman-pomodoro/assets/index-BNHgAwOo.css">
 </head>
 
 <body>
@@ -24,6 +24,33 @@
         <button class="session-btn" data-index="3" aria-label="Start Session 4"></button>
       </div>
       <button id="reset-btn" class="secondary-btn">Reset Progress</button>
+      <button id="settings-btn" class="icon-btn" aria-label="Settings">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path
+            d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z">
+          </path>
+          <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal hidden">
+      <div class="modal-content">
+        <h2>Settings</h2>
+        <div class="setting-group">
+          <label for="focus-duration">Focus Duration: <span id="focus-val">50</span>m</label>
+          <input type="range" id="focus-duration" min="0" max="90" step="5" value="50">
+        </div>
+        <div class="setting-group">
+          <label for="rest-duration">Rest Duration: <span id="rest-val">10</span>m</label>
+          <input type="range" id="rest-duration" min="0" max="30" step="1" value="10">
+        </div>
+        <div class="modal-actions">
+          <button id="close-settings-btn" class="primary-btn">Save & Close</button>
+        </div>
+      </div>
     </div>
 
     <!-- Overlay for Timer States -->
